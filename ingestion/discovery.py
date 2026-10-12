@@ -3,7 +3,7 @@
 import logging
 import urllib.parse
 from dataclasses import dataclass
-from typing import List
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -24,13 +24,13 @@ class DiscoveredJob:
 def search_public_remote_jobs(
     keywords: str = "AI Engineer Cloud Automation Google Workspace",
     limit: int = 5,
-) -> List[DiscoveredJob]:
+) -> list[DiscoveredJob]:
     """
     Search for recent public remote job postings using open API/web feeds
     without requiring authenticated LinkedIn credentials.
     Supports Remotive and public job boards with remote filter.
     """
-    discovered: List[DiscoveredJob] = []
+    discovered: list[DiscoveredJob] = []
 
     # 1. LinkedIn Public Guest Search (España + 100% Remoto - Prioridad principal)
     try:

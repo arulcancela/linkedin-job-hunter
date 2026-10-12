@@ -1,7 +1,8 @@
 """Notion database integration for recording job evaluations."""
 
 import logging
-from typing import Any, Dict, Optional
+from typing import Any
+
 from notion_client import Client
 from notion_client.errors import APIResponseError
 
@@ -14,12 +15,12 @@ logger = logging.getLogger("ai_job_hunter.notion")
 class NotionJobSync:
     """Manages recording and updating job evaluation entries in a Notion database."""
 
-    def __init__(self, settings: Optional[Settings] = None):
+    def __init__(self, settings: Settings | None = None):
         self.settings = settings or get_settings()
         self.client = Client(auth=self.settings.notion_token) if self.settings.notion_token else None
         self.database_id = self.settings.notion_database_id
 
-    def sync_evaluation(self, evaluation: JobEvaluation, source_url: str = "") -> Optional[str]:
+    def sync_evaluation(self, evaluation: JobEvaluation, source_url: str = "") -> str | None:
         """
         Create a new row and rich content blocks in the Notion database.
 
@@ -35,7 +36,7 @@ class NotionJobSync:
             return None
 
         # Build resilient Notion properties dictionary
-        properties: Dict[str, Any] = {
+        properties: dict[str, Any] = {
             "Título": {
                 "title": [
                     {
@@ -171,7 +172,7 @@ class NotionJobSync:
             # Fallback attempt: if database is missing optional properties, try with minimum core properties
             return self._retry_with_minimal_properties(evaluation, source_url)
 
-    def _retry_with_minimal_properties(self, evaluation: JobEvaluation, source_url: str) -> Optional[str]:
+    def _retry_with_minimal_properties(self, evaluation: JobEvaluation, source_url: str) -> str | None:
         """Fallback in case the user's Notion database doesn't have all exact property columns configured."""
         try:
             minimal_properties = {

@@ -2,10 +2,9 @@
 
 import re
 import urllib.parse
-from typing import Optional, Tuple
+
 import requests
 from bs4 import BeautifulSoup
-
 
 # Browser-like headers to minimize anti-scraping blocks on guest view endpoints
 DEFAULT_HEADERS = {
@@ -32,7 +31,7 @@ DEFAULT_HEADERS = {
 class ExtractionError(Exception):
     """Raised when URL extraction fails or gets blocked by anti-bot defenses."""
 
-    def __init__(self, message: str, url: str, status_code: Optional[int] = None):
+    def __init__(self, message: str, url: str, status_code: int | None = None):
         super().__init__(message)
         self.url = url
         self.status_code = status_code
@@ -49,7 +48,7 @@ def _clean_linkedin_url(url: str) -> str:
     return url
 
 
-def _extract_linkedin_job_content(html: str) -> Optional[str]:
+def _extract_linkedin_job_content(html: str) -> str | None:
     """Parse LinkedIn HTML to extract job details."""
     soup = BeautifulSoup(html, "html.parser")
 
@@ -104,7 +103,7 @@ def _extract_generic_web_content(html: str) -> str:
     return "\n".join(cleaned_lines)
 
 
-def extract_job_from_url(url: str, timeout: int = 15) -> Tuple[str, str]:
+def extract_job_from_url(url: str, timeout: int = 15) -> tuple[str, str]:
     """
     Attempt to extract job description text from a URL.
 

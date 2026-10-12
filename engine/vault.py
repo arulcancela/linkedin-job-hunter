@@ -4,7 +4,6 @@ import re
 import sqlite3
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 from engine.schemas import JobEvaluation
 
@@ -12,7 +11,7 @@ from engine.schemas import JobEvaluation
 class JobVault:
     """Manages offline markdown dossiers and deduplication database."""
 
-    def __init__(self, base_dir: Optional[Path] = None):
+    def __init__(self, base_dir: Path | None = None):
         self.base_dir = base_dir or Path(__file__).resolve().parent.parent
         self.apps_dir = self.base_dir / "applications"
         self.data_dir = self.base_dir / "data"

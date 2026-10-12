@@ -1,6 +1,7 @@
 """Pydantic schemas for structured LLM evaluation output."""
 
-from typing import List, Literal
+from typing import Literal
+
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -56,12 +57,12 @@ class JobEvaluation(BaseModel):
             "o si el entorno oral y diario es 100% en inglés."
         ),
     )
-    match_reasons: List[str] = Field(
+    match_reasons: list[str] = Field(
         ...,
         min_length=1,
         description="Lista de motivos concretos de encaje entre la oferta y el perfil del candidato",
     )
-    missing_keywords: List[str] = Field(
+    missing_keywords: list[str] = Field(
         default_factory=list,
         description="Palabras clave o habilidades técnicas ausentes o débiles en el perfil frente a la oferta",
     )

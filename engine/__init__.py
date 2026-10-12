@@ -1,6 +1,6 @@
 """AI Evaluation Engine module."""
 
-from engine.schemas import JobEvaluation
 from engine.evaluator import JobEvaluator
+from engine.schemas import JobEvaluation
 
 __all__ = ["JobEvaluation", "JobEvaluator"]

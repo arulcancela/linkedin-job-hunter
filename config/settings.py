@@ -1,8 +1,8 @@
 """Application settings loaded from environment variables or .env file."""
 
-import os
 from functools import lru_cache
-from typing import Literal, Optional
+from typing import Literal
+
 from dotenv import load_dotenv
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     )
 
     # Gemini Settings
-    gemini_api_key: Optional[str] = Field(
+    gemini_api_key: str | None = Field(
         default=None,
         alias="GEMINI_API_KEY",
         description="Google Gemini API key",
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     )
 
     # DeepSeek Settings
-    deepseek_api_key: Optional[str] = Field(
+    deepseek_api_key: str | None = Field(
         default=None,
         alias="DEEPSEEK_API_KEY",
         description="DeepSeek API key",
@@ -57,24 +57,24 @@ class Settings(BaseSettings):
     )
 
     # Notion Settings
-    notion_token: Optional[str] = Field(
+    notion_token: str | None = Field(
         default=None,
         alias="NOTION_TOKEN",
         description="Notion internal integration token",
     )
-    notion_database_id: Optional[str] = Field(
+    notion_database_id: str | None = Field(
         default=None,
         alias="NOTION_DATABASE_ID",
         description="Notion database ID for storing jobs",
     )
 
     # Telegram Settings
-    telegram_bot_token: Optional[str] = Field(
+    telegram_bot_token: str | None = Field(
         default=None,
         alias="TELEGRAM_BOT_TOKEN",
         description="Telegram bot token for notifications",
     )
-    telegram_chat_id: Optional[str] = Field(
+    telegram_chat_id: str | None = Field(
         default=None,
         alias="TELEGRAM_CHAT_ID",
         description="Telegram chat or channel ID to receive alerts",

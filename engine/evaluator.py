@@ -1,8 +1,7 @@
 """AI Evaluator implementation supporting Google Gemini and DeepSeek."""
 
-import json
 import logging
-from typing import Optional
+
 import requests
 
 from config.settings import Settings, get_settings
@@ -20,7 +19,7 @@ class EvaluationError(Exception):
 class JobEvaluator:
     """Evaluates job postings against the candidate's master profile."""
 
-    def __init__(self, settings: Optional[Settings] = None):
+    def __init__(self, settings: Settings | None = None):
         self.settings = settings or get_settings()
 
     def evaluate(self, job_text: str, source_url: str = "") -> JobEvaluation:

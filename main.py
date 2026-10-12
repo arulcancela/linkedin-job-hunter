@@ -9,17 +9,16 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
 from config.settings import get_settings
-from engine.evaluator import JobEvaluator, EvaluationError
+from engine.evaluator import EvaluationError, JobEvaluator
 from engine.vault import JobVault
 from ingestion.discovery import search_public_remote_jobs
-from ingestion.extractor import extract_job_from_url, ExtractionError
+from ingestion.extractor import ExtractionError, extract_job_from_url
 from ingestion.text_reader import read_from_clipboard_or_input, read_from_file
 from integrations.notion_client import NotionJobSync
 from integrations.telegram_bot import TelegramAlertBot
@@ -27,7 +26,7 @@ from integrations.telegram_bot import TelegramAlertBot
 console = Console()
 
 
-def display_evaluation_summary(evaluation, source_url: str = "", dossier_path: Optional[Path] = None):
+def display_evaluation_summary(evaluation, source_url: str = "", dossier_path: Path | None = None):
     """Render a visually rich terminal dashboard of the evaluation."""
     score_color = "green" if evaluation.fit_score >= 75 else ("yellow" if evaluation.fit_score >= 55 else "red")
     decision_badge = f"[{score_color} bold]{evaluation.decision} ({evaluation.fit_score}%)[/{score_color} bold]"
@@ -86,7 +85,7 @@ def process_job(
     source_url: str = "",
     dry_run: bool = False,
     force_alert: bool = False,
-    provider_override: Optional[str] = None,
+    provider_override: str | None = None,
 ):
     """Execute end-to-end processing pipeline for a job description."""
     settings = get_settings()

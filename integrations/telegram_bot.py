@@ -2,7 +2,7 @@
 
 import html
 import logging
-from typing import Optional
+
 import requests
 
 from config.settings import Settings, get_settings
@@ -14,7 +14,7 @@ logger = logging.getLogger("ai_job_hunter.telegram")
 class TelegramAlertBot:
     """Sends rich Telegram notifications for jobs matching or exceeding criteria."""
 
-    def __init__(self, settings: Optional[Settings] = None):
+    def __init__(self, settings: Settings | None = None):
         self.settings = settings or get_settings()
         self.bot_token = self.settings.telegram_bot_token
         self.chat_id = self.settings.telegram_chat_id
@@ -23,7 +23,7 @@ class TelegramAlertBot:
         self,
         evaluation: JobEvaluation,
         source_url: str = "",
-        notion_url: Optional[str] = None,
+        notion_url: str | None = None,
         force: bool = False,
     ) -> bool:
         """
@@ -54,7 +54,7 @@ class TelegramAlertBot:
         self,
         evaluation: JobEvaluation,
         source_url: str = "",
-        notion_url: Optional[str] = None,
+        notion_url: str | None = None,
     ) -> str:
         """Render alert message in clean Telegram HTML format."""
         # Progress bar representation
@@ -67,7 +67,7 @@ class TelegramAlertBot:
 
         lines = [
             f"🔥 <b>NUEVA OPORTUNIDAD APTA ({evaluation.fit_score}%)</b>",
-            f"━━━━━━━━━━━━━━━━━━━",
+            "━━━━━━━━━━━━━━━━━━━",
             f"💼 <b>Puesto:</b> {safe_title}",
             f"🏢 <b>Empresa:</b> {safe_company}",
             f"📍 <b>Modalidad:</b> {remote_icon}",

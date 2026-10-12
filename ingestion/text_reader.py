@@ -2,10 +2,9 @@
 
 import sys
 from pathlib import Path
-from typing import Optional
 
 
-def read_from_clipboard_or_input(prompt_message: Optional[str] = None) -> str:
+def read_from_clipboard_or_input(prompt_message: str | None = None) -> str:
     """
     Interactively read multiline job text from user terminal input.
     Accepts input until EOF (Ctrl+D on Linux/macOS, Ctrl+Z on Windows)
