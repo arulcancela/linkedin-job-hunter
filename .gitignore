@@ -1,0 +1,45 @@
+# ── Virtual Environments ──────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Environment files (NUNCA subir secretos) ──────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Datos personales y salidas (no subir) ─────────────────────────
+# Historial de búsquedas, dossiers de candidatura y CV personal.
+data/
+applications/
+CV_*.pdf
+*.sqlite
+*.db
+job_history.db
+
+# ── Python cache & artifacts ──────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# ── Logs & temp data ──────────────────────────────────────────────
+*.log
+scratch/
+output/
+temp/
+tmp/
+
+# ── Sistema / editores ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
